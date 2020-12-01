@@ -1,4 +1,4 @@
-package com.mumuni.toy;
+package com.mumuni.toy.springboot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
