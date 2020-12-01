@@ -1,0 +1,34 @@
+buildscript {
+    ext {   //미리 정의한다는 의미, maven 에서 parent 역활
+        springBootVersion = '2.1.7.RELEASE'
+    }
+    //어느 원격저장소에서 플러그인을 받을지 결정
+    //해당 예제는 둘다 사용하는 방식을 사둉함
+    repositories {
+        mavenCentral()  //자주 쓰는 저장소, but 라이브러리 업로드가 까다로움
+        jcenter()       // 라이브러리 업로드가 간단함
+    }
+
+    //개발에 필요한 의존성 선언 구역
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+//플러그인 의존성 적용 여부
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management' //spring boot 의존성 관리 플러그인
+
+group 'com.mumuni.toy'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile ('org.springframework.boot:spring-boot-starter-test')
+}
