@@ -4,7 +4,11 @@ import com.mumuni.toy.springboot.web.HelloController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -15,8 +19,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 
-@RunWith(SpringRunner.class)    //springRunner 스프링 실행자 실행 (not junit, junit과 spring boot test 연결다리)
-@WebMvcTest(controllers = HelloController.class) //Web(Spring mvc)만 집중하는 어노테이션
+//@RunWith(SpringRunner.class)    //springRunner 스프링 실행자 실행 (not junit, junit과 spring boot test 연결다리)
+//@WebMvcTest(controllers = HelloController.class) //Web(Spring mvc)만 집중하는 어노테이션
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc               // WebMvcTest는 JPA 기능이 동작하지 않기 때문에 이를 사용할 수 없다. 고로 이러한 방식을 이용해야 한다.
 public class HelloControllerTest {
 
     @Autowired
