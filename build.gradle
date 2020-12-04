@@ -34,6 +34,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa') //spring boot용 jpa 추상화 라이브러리
     compile('com.h2database:h2')                                     //인메모리 관계형 데이터베이스
     compile('org.springframework.boot:spring-boot-starter-mustache')
-    compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+    compile('org.springframework.boot:spring-boot-starter-oauth2-client')       //외부 연동 인증구현
+    compile('org.springframework.session:spring-session-jdbc')   //session 이용
+    compile('org.springframework.security:spring-security-test') //test에 필요한 인증
     testCompile ('org.springframework.boot:spring-boot-starter-test')
 }

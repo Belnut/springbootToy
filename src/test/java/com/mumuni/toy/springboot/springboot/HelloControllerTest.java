@@ -1,5 +1,6 @@
 package com.mumuni.toy.springboot.springboot;
 
+import com.mumuni.toy.springboot.config.auth.SecurityConfig;
 import com.mumuni.toy.springboot.web.HelloController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,11 +29,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc               // WebMvcTest는 JPA 기능이 동작하지 않기 때문에 이를 사용할 수 없다. 고로 이러한 방식을 이용해야 한다.
+//방법 1 : AutoConfigureMockMvc를 사용한다
+
+//@WebMvcTest(controllers = HelloController.class,
+//        excludeFilters = {
+//        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
+//        }
+//)   //스캔대상에서 SecurityConfig를 제거한다.
 public class HelloControllerTest {
 
     @Autowired
     private MockMvc mvc; // http -get -post api 테스트용
 
+    @WithMockUser(roles = "USER")
     @Test
     public void return_hello() throws Exception {
         String hello = "hello";
@@ -39,6 +51,7 @@ public class HelloControllerTest {
                 .andExpect(content().string(hello)); // mvc.perform 결과 검증 : 응답 본문의 내용 검증
     }
 
+    @WithMockUser(roles = "USER")
     @Test
     public void return_helloDto() throws Exception {
         String name = "hello";
