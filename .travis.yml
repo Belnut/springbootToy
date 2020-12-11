@@ -33,6 +33,17 @@ deploy:
     local_dir: deploy # before_deploy에서 생성한 디렉토리
     wait-until-deployed: true
 
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # travis repo setting 설정값
+    secret_access_key: $AWS_SECRET_KEY # travis repo setting 설정값
+    bucket: mumuni-springboot-build
+    key: mumuni-springbootToy.zip
+    bundle_type: zip
+    application: mumuni-springboottoy
+    deployment_group: mumuni-springboottoy-group
+    region: ap-northeast-2
+    wait-until-deployed: true
+
 # CI 실행 완료 시 메일 알람
 notifications:
   email:
