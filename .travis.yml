@@ -24,7 +24,7 @@ before_deploy:
 
 deploy:
   - provider: s3
-    access_ksy_id: $AWS_ACCESS_KEY # travis repo setting 설정값
+    access_key_id: $AWS_ACCESS_KEY # travis repo setting 설정값
     secret_access_key: $AWS_SECRET_KEY # travis repo setting 설정값
     bucket: mumuni-springboot-build # S3 버킷
     region: ap-northeast-2
@@ -34,7 +34,7 @@ deploy:
     wait-until-deployed: true
 
   -provider: codedeploy
-    access_ksy_id: $AWS_ACCESS_KEY # travis repo setting 설정값
+    access_key_id: $AWS_ACCESS_KEY # travis repo setting 설정값
     secret_access_key: $AWS_SECRET_KEY # travis repo setting 설정값
     bucket: mumuni-springboot-build
     key: mumuni-springbootToy.zip
